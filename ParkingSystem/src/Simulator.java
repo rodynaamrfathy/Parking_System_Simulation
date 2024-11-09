@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-
 public class Simulator {
     private ParkingLot parkingLot;
     private GarageGate[] garageGates;
@@ -27,7 +26,6 @@ public class Simulator {
                 int parking_duration = Integer.parseInt(parts[3].split(" ")[1]);
 
                 Car car = new Car(car_id, gate_id, arrival_time, parking_duration, parkingLot);
-                // by7ot el car fy el queue bt3t el gate el htt5ol menha
                 garageGates[gate_id].add_car(car);
             }
         } catch (IOException e) {
@@ -37,19 +35,17 @@ public class Simulator {
 
     public void start_Simulation() {
         for (GarageGate gate : garageGates) {
-            // start kol el gates threads 
             gate.start();
         }
         for (GarageGate gate : garageGates) {
             try {
-                gate.join(); // hy join kolhom ashan yb2o parrallel
+                gate.join(); // Wait for all gates to finish
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        parkingLot.report_activity(); 
-        for(GarageGate gate : garageGates)
-        {
+        parkingLot.report_activity();
+        for(GarageGate gate : garageGates) {
             gate.report_activity();
         }
     }
@@ -58,6 +54,5 @@ public class Simulator {
         Simulator simulator = new Simulator();
         simulator.read_Input("car_data.txt");
         simulator.start_Simulation();
-
     }
 }

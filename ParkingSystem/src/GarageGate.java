@@ -14,10 +14,13 @@ public class GarageGate extends Thread {
     public void run() {
         while (!carQueue.isEmpty()) {
             Car car = carQueue.poll();
-            gate_served++;
-            // hena dlw2ty car gaya w arival bt3ha 7 y3ni hto2f ala el gate 7 sec w b3din tb2a ready tt5ol
-            // lw fy whda gat ablha htt5ol threads mmsh bt7km feha
             car.start();
+            try {
+                car.join(); // Wait for the car thread to finish
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            gate_served++;
         }
     }
 
@@ -26,6 +29,6 @@ public class GarageGate extends Thread {
     }
     
     public void report_activity() {
-        System.out.println("Gate " + gate_id + "served" + gate_served + "cars.");
+        System.out.println("Gate " + gate_id + " served " + gate_served + " cars.");
     }
 }

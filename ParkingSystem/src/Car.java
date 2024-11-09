@@ -1,4 +1,4 @@
-public class Car extends Thread{
+public class Car extends Thread {
     int car_id;
     int gate_id;
     int parking_duration;
@@ -15,17 +15,17 @@ public class Car extends Thread{
 
     public void run() {
         try {
-            Thread.sleep(arrival_time * 1000); // Simulates car arrival timing
+            Thread.sleep(arrival_time * 1000); // Simulate car arrival
             try_to_park();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
+    
     public void try_to_park() {
         parkingLot.park_car(this);
         try {
-            Thread.sleep(parking_duration * 1000); // Simulates the duration the car parks
+            Thread.sleep(parking_duration * 1000); // Simulate parking duration
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
