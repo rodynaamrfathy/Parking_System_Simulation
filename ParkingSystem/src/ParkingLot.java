@@ -19,6 +19,6 @@ public class ParkingLot {
 
     public void report_activity() {
         System.out.println("Total Cars Served: " + Total_parked_cars);
-        System.out.println("Current Cars in Parking: " + (capacity - parked_cars));
+        System.out.println("Current Cars in Parking: " + (parked_cars));
     }
 }

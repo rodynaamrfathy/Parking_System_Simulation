@@ -47,12 +47,17 @@ public class Simulator {
                 e.printStackTrace();
             }
         }
-        parkingLot.report_activity(); // mfrod deh el t print el output needs bs tazbet
+        parkingLot.report_activity(); 
+        for(GarageGate gate : garageGates)
+        {
+            gate.report_activity();
+        }
     }
 
     public static void main(String[] args) {
         Simulator simulator = new Simulator();
         simulator.read_Input("car_data.txt");
         simulator.start_Simulation();
+
     }
 }
