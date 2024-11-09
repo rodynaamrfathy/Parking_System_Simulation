@@ -1,5 +1,5 @@
-public class GarageGate {
-    void run()
+public class GarageGate extends Thread{
+    public void run()
     {
         
     }
