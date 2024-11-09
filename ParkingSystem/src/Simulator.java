@@ -44,6 +44,10 @@ public class Simulator {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void report()
+    {
         parkingLot.report_activity();
         for(GarageGate gate : garageGates) {
             gate.report_activity();
@@ -54,5 +58,6 @@ public class Simulator {
         Simulator simulator = new Simulator();
         simulator.read_Input("car_data.txt");
         simulator.start_Simulation();
+        //simulator.report();
     }
 }
