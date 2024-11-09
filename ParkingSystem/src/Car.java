@@ -21,7 +21,7 @@ public class Car extends Thread {
             e.printStackTrace();
         }
     }
-    
+
     public void try_to_park() {
         parkingLot.park_car(this);
         try {
@@ -29,6 +29,6 @@ public class Car extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        parkingLot.car_leave(this);
+        parkingLot.car_leave(this); // Leave after parking duration
     }
 }

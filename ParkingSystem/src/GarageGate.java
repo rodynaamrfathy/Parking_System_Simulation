@@ -14,9 +14,9 @@ public class GarageGate extends Thread {
     public void run() {
         while (!carQueue.isEmpty()) {
             Car car = carQueue.poll();
-            car.start();
+            car.start();  // Start the car thread
             try {
-                car.join(); // Wait for the car thread to finish
+                car.join();  // Wait for the car thread to finish
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -27,7 +27,7 @@ public class GarageGate extends Thread {
     public void add_car(Car car) {
         carQueue.add(car);
     }
-    
+
     public void report_activity() {
         System.out.println("Gate " + gate_id + " served " + gate_served + " cars.");
     }
