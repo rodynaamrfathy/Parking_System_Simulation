@@ -58,6 +58,6 @@ public class Simulator {
         Simulator simulator = new Simulator();
         simulator.read_Input("car_data.txt");
         simulator.start_Simulation();
-        //simulator.report();
+        simulator.report();
     }
 }
