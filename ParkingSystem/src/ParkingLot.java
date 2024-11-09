@@ -1,20 +1,24 @@
 public class ParkingLot {
     private int capacity = 4;
     private Semaphore parkingSpot = new Semaphore(capacity); 
-    private int totalCarsParked = 0;
+    public int parked_cars = 0;
+    public int Total_parked_cars = 0;
 
     public synchronized void park_car(Car car) {
+        parked_cars++;
+        Total_parked_cars++;
         parkingSpot.Wait();
-        totalCarsParked++;
-        System.out.println("Car " + car.car_id + " from Gate " + car.gate_id + " parked. Total parked: " + totalCarsParked);
+        System.out.println("Car " + car.car_id + " from Gate " + car.gate_id + " arrived at time " + car.arrival_time);
     }
 
     public synchronized void car_leave(Car car) {
         parkingSpot.Signal();
-        System.out.println("Car " + car.car_id + " left. Total parked: " + totalCarsParked);
+        parked_cars--;
+        System.out.println("Car " + car.car_id + " from Gate " + car.gate_id + " left after " + car.parking_duration + " units of time. (Parking Status: " + parked_cars + " spots occupied)");
     }
 
     public void report_activity() {
-        System.out.println("Parking lot activity completed.");
+        System.out.println("Total Cars Served: " + Total_parked_cars);
+        System.out.println("Current Cars in Parking: " + (capacity - parked_cars));
     }
 }
