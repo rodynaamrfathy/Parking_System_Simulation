@@ -31,6 +31,10 @@ public class ParkingLot {
     public synchronized void parkCar(Car car) {
         try {
             Simulator.parkingSpaces.Wait(Thread.currentThread()); // Wait for a parking spot
+
+            // Logging to debug semaphore wait
+            System.out.println("Car " + car.getCarId() + " from Gate " + car.getGateId() + " is trying to park.");
+            
             synchronized (this) {  // Critical section to modify shared resources
                 parkedCars++;
                 totalParkedCars++;
@@ -47,6 +51,8 @@ public class ParkingLot {
                 parkedCars--;
                 System.out.println("Car " + car.getCarId() + " from Gate " + car.getGateId() + " left after " + car.getParkingDuration() + " units of time. (Parking Status: " + parkedCars + "/" + capacity + ")");
             }
+            // Simulate the car leaving
+            Thread.sleep(1000);  // Simulate a delay before signaling the semaphore
             Simulator.parkingSpaces.Signal(); // Signal that a spot is free
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,3 +66,4 @@ public class ParkingLot {
         System.out.println("Current Cars in Parking: " + parkedCars);
     }
 }
+

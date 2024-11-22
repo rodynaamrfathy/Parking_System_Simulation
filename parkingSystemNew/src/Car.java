@@ -28,16 +28,22 @@ public class Car extends Thread {
     @Override
     public void run() {
         try {
-            Thread.sleep(arrivalTime * 1000); // Simulate arrival time
-            parkingLot.parkCar(this);  // Handle parking logic here
-            try {
-                Thread.sleep(parkingDuration * 1000); // Simulate parking duration
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            parkingLot.carLeave(this);  // Handle car leaving after parking duration
+            // Simulate arrival time
+            Thread.sleep(arrivalTime * 1000); 
+            System.out.println("Car " + carId + " from Gate " + gateId + " arrived at parking lot.");
+            
+            // Handle parking logic
+            parkingLot.parkCar(this);  
+            
+            // Simulate parking duration
+            Thread.sleep(parkingDuration * 1000); 
+            
+            // Handle car leaving
+            parkingLot.carLeave(this);  
+            System.out.println("Car " + carId + " from Gate " + gateId + " is leaving.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+    
 }
