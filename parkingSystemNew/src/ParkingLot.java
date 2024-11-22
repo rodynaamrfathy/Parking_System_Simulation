@@ -52,7 +52,6 @@ public class ParkingLot {
                 System.out.println("Car " + car.getCarId() + " from Gate " + car.getGateId() + " left after " + car.getParkingDuration() + " units of time. (Parking Status: " + parkedCars + "/" + capacity + ")");
             }
             // Simulate the car leaving
-            Thread.sleep(1000);  // Simulate a delay before signaling the semaphore
             Simulator.parkingSpaces.Signal(); // Signal that a spot is free
         } catch (Exception e) {
             e.printStackTrace();

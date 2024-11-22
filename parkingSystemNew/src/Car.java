@@ -36,7 +36,8 @@ public class Car extends Thread {
             parkingLot.parkCar(this);  
             
             // Simulate parking duration
-            Thread.sleep(parkingDuration * 1000); 
+            int time = getParkingDuration() * 100;
+            Thread.sleep(time); // should be time msh 1000 
             
             // Handle car leaving
             parkingLot.carLeave(this);  
