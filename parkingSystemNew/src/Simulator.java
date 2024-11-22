@@ -48,13 +48,12 @@ public class Simulator {
                 e.printStackTrace();
             }
         }
-        parkingLot.startParkingProcess(); // Start parking process after all gates are finished
+        parkingLot.startParkingProcess();
         parkingLot.reportActivity(); // Report final parking lot activity
         for (GarageGate gate : garageGates) {
             gate.report_activity(); // Report gate-specific activity
         }
     }
-    
 
     public static void main(String[] args) {
         Simulator simulator = new Simulator();

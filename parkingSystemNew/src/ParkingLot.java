@@ -8,7 +8,7 @@ public class ParkingLot {
     public Queue<Car> parkingQueue = new LinkedList<>();
 
     public ParkingLot() {
-        this.capacity = 4;
+        this.capacity = 4;  // For example, the parking lot has 4 spots
     }
 
     public int getCapacity() {
@@ -23,36 +23,36 @@ public class ParkingLot {
         while (!parkingQueue.isEmpty()) {
             Car car = parkingQueue.poll();
             if (car != null) {
-                // Start the car's parking thread
-                car.start();
+                car.start();  // Start the car's parking thread
             }
         }
     }
-
+    
     public synchronized void parkCar(Car car) {
         try {
             Simulator.parkingSpaces.Wait(Thread.currentThread()); // Wait for a parking spot
-            Simulator.mutex.Wait(Thread.currentThread()); // Synchronize access to shared resources
-            parkedCars++;
-            totalParkedCars++;
-            System.out.println("Car " + car.getCarId() + " from Gate " + car.getGateId() + " parked. (Parking Status: " + parkedCars + "/" + capacity + ")");
-            Simulator.mutex.Signal();
+            synchronized (this) {  // Critical section to modify shared resources
+                parkedCars++;
+                totalParkedCars++;
+                System.out.println("Car " + car.getCarId() + " from Gate " + car.getGateId() + " parked. (Parking Status: " + parkedCars + "/" + capacity + ")");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
     public synchronized void carLeave(Car car) {
         try {
-            Simulator.mutex.Wait(Thread.currentThread()); // Synchronize access
-            parkedCars--;
-            System.out.println("Car " + car.getCarId() + " from Gate " + car.getGateId() + " left after " + car.getParkingDuration() + " units of time. (Parking Status: " + parkedCars + "/" + capacity + ")");
-            Simulator.mutex.Signal();
+            synchronized (this) {  // Critical section to modify shared resources
+                parkedCars--;
+                System.out.println("Car " + car.getCarId() + " from Gate " + car.getGateId() + " left after " + car.getParkingDuration() + " units of time. (Parking Status: " + parkedCars + "/" + capacity + ")");
+            }
             Simulator.parkingSpaces.Signal(); // Signal that a spot is free
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
 
     public void reportActivity() {
         System.out.println("Parking Lot Report:");
